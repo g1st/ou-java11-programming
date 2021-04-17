@@ -1,4 +1,4 @@
-package com.capgemini;
+package labs.pm;
 
 public class Main {
 

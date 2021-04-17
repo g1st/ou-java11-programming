@@ -1,4 +1,4 @@
-package com.capgemini;
+package labs.pm;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
