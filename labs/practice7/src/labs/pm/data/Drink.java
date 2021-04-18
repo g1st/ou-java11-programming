@@ -8,13 +8,11 @@
 
 package labs.pm.data;
 
-import labs.pm.app.Shop;
-
 import java.math.BigDecimal;
 import java.time.LocalTime;
 
 public final class Drink extends Product {
-    Drink(int id, String name, BigDecimal price, Shop.Rating rating) {
+    Drink(int id, String name, BigDecimal price, Rating rating) {
         super(id, name, price, rating);
     }
 
@@ -25,7 +23,7 @@ public final class Drink extends Product {
     }
 
     @Override
-    public Drink applyRating(Shop.Rating newRating) {
+    public Drink applyRating(Rating newRating) {
         return new Drink(getId(), getName(), getPrice(), newRating);
     }
 }

@@ -8,15 +8,13 @@
 
 package labs.pm.data;
 
-import labs.pm.app.Shop;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public final class Food extends Product {
     private LocalDate bestBefore;
 
-    Food(int id, String name, BigDecimal price, Shop.Rating rating, LocalDate bestBefore) {
+    Food(int id, String name, BigDecimal price, Rating rating, LocalDate bestBefore) {
         super(id, name, price, rating);
         this.bestBefore = bestBefore;
     }
@@ -32,7 +30,7 @@ public final class Food extends Product {
     }
 
     @Override
-    public Food applyRating(Shop.Rating newRating) {
+    public Food applyRating(Rating newRating) {
         return new Food(getId(), getName(), getPrice(), newRating, getBestBefore());
     }
 }

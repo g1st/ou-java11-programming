@@ -8,8 +8,6 @@
 
 package labs.pm.data;
 
-import labs.pm.app.Shop;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -17,11 +15,11 @@ import java.time.LocalDate;
 public class ProductManager {
 
     // this is factory method
-    public Product createProduct(int id, String name, BigDecimal price, Shop.Rating rating, LocalDate bestBefore) {
+    public Product createProduct(int id, String name, BigDecimal price, Rating rating, LocalDate bestBefore) {
         return new Food(id, name, price, rating, bestBefore);
     }
     // this is factory method too
-    public Product createProduct(int id, String name, BigDecimal price, Shop.Rating rating) {
+    public Product createProduct(int id, String name, BigDecimal price, Rating rating) {
         return new Drink(id, name, price, rating);
     }
 }

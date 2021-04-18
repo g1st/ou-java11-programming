@@ -8,8 +8,6 @@
 
 package labs.pm.data;
 
-import labs.pm.app.Shop;
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
@@ -28,7 +26,7 @@ import java.util.Objects;
  * @author oracle
  * @version 4.0
  */
-public abstract class Product {
+public abstract class Product implements Rateable{
     /**
      * A constant that defines a
      * {@link java.math.BigDecimal BigDecimal} value of the discount rate
@@ -39,9 +37,9 @@ public abstract class Product {
     private final int id;
     private final String name;
     private final BigDecimal price;
-    private Shop.Rating rating;
+    private Rating rating;
 
-    Product(int id, String name, BigDecimal price, Shop.Rating rating) {
+    Product(int id, String name, BigDecimal price, Rating rating) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -60,7 +58,7 @@ public abstract class Product {
         return price;
     }
 
-    public Shop.Rating getRating() {
+    public Rating getRating() {
         return rating;
     }
 
@@ -74,7 +72,7 @@ public abstract class Product {
         return price.multiply(DISCOUNT_RATE).setScale(2, RoundingMode.HALF_UP);
     }
 
-    public abstract Product applyRating(Shop.Rating newRating);
+    public abstract Product applyRating(Rating newRating);
 
     /**
      * Get the value of the best before date
