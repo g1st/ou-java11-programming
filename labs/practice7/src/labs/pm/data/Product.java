@@ -26,7 +26,7 @@ import java.util.Objects;
  * @author oracle
  * @version 4.0
  */
-public abstract class Product implements Rateable{
+public abstract class Product implements Rateable<Product>{
     /**
      * A constant that defines a
      * {@link java.math.BigDecimal BigDecimal} value of the discount rate
@@ -58,6 +58,7 @@ public abstract class Product implements Rateable{
         return price;
     }
 
+    @Override
     public Rating getRating() {
         return rating;
     }
@@ -72,7 +73,7 @@ public abstract class Product implements Rateable{
         return price.multiply(DISCOUNT_RATE).setScale(2, RoundingMode.HALF_UP);
     }
 
-    public abstract Product applyRating(Rating newRating);
+//    public abstract Product applyRating(Rating newRating);
 
     /**
      * Get the value of the best before date
