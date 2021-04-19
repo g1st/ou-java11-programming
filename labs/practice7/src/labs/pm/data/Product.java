@@ -100,7 +100,6 @@ public abstract class Product implements Rateable<Product>{
         return id == product.id && name.equals(product.name);
     }
 
-
     // hashCode needs to be overridden because any objects that returns true
     // should have the same hashcode also
     @Override
