@@ -28,43 +28,43 @@ public class Shop {
 //        ProductManager pm = new ProductManager(Locale.US);
         ProductManager pm = new ProductManager(Locale.UK);
 
-        Product p1 = pm.createProduct(101, "Tea", BigDecimal.valueOf(1.99), NOT_RATED);
-        pm.printProductReport(p1);
-        p1 = pm.reviewProduct(p1, FOUR_STAR, "Nice hot cup of tea");
-        p1 = pm.reviewProduct(p1, TWO_STAR, "Rather weak tea");
-        p1 = pm.reviewProduct(p1, FOUR_STAR, "Fine tea");
-        p1 = pm.reviewProduct(p1, FOUR_STAR, "Good tea");
-        p1 = pm.reviewProduct(p1, FIVE_STAR, "Perfect tea");
-        p1 = pm.reviewProduct(p1, THREE_STAR, "Just add some lemon");
-        pm.printProductReport(p1);
+        pm.createProduct(101, "Tea", BigDecimal.valueOf(1.99), NOT_RATED);
+        pm.printProductReport(101);
+        pm.reviewProduct(101, FOUR_STAR, "Nice hot cup of tea");
+        pm.reviewProduct(101, TWO_STAR, "Rather weak tea");
+        pm.reviewProduct(101, FOUR_STAR, "Fine tea");
+        pm.reviewProduct(101, FOUR_STAR, "Good tea");
+        pm.reviewProduct(101, FIVE_STAR, "Perfect tea");
+        pm.reviewProduct(101, THREE_STAR, "Just add some lemon");
+        pm.printProductReport(101);
 
-        Product p2 = pm.createProduct(102, "Coffee", BigDecimal.valueOf(1.99), NOT_RATED);
-        pm.reviewProduct(p2, THREE_STAR, "Coffee was ok");
-        pm.reviewProduct(p2, ONE_STAR, "Where is the milk?!");
-        pm.reviewProduct(p2, FIVE_STAR, "It's perfect with ten spoons of sugar!");
-        pm.printProductReport(p2);
+        pm.createProduct(102, "Coffee", BigDecimal.valueOf(1.99), NOT_RATED);
+        pm.reviewProduct(102, THREE_STAR, "Coffee was ok");
+        pm.reviewProduct(102, ONE_STAR, "Where is the milk?!");
+        pm.reviewProduct(102, FIVE_STAR, "It's perfect with ten spoons of sugar!");
+        pm.printProductReport(102);
 
-        Product p3 = pm.createProduct(103, "Cake", BigDecimal.valueOf(3.99), NOT_RATED, LocalDate.now().plusDays(2));
-        pm.reviewProduct(p3, FIVE_STAR, "Very nice cake");
-        pm.reviewProduct(p3, FOUR_STAR, "It's good, but I've expected more chocolate");
-        pm.reviewProduct(p3, FIVE_STAR, "This cake is perfect!");
-        pm.printProductReport(p3);
+        pm.createProduct(103, "Cake", BigDecimal.valueOf(3.99), NOT_RATED, LocalDate.now().plusDays(2));
+        pm.reviewProduct(103, FIVE_STAR, "Very nice cake");
+        pm.reviewProduct(103, FOUR_STAR, "It's good, but I've expected more chocolate");
+        pm.reviewProduct(103, FIVE_STAR, "This cake is perfect!");
+        pm.printProductReport(103);
 
-        Product p4 = pm.createProduct(104, "Cookie", BigDecimal.valueOf(2.99), NOT_RATED, LocalDate.now());
-        pm.reviewProduct(p4, THREE_STAR, "Just another cookie");
-        pm.reviewProduct(p4, THREE_STAR, "Ok");
-        pm.printProductReport(p4);
+        pm.createProduct(104, "Cookie", BigDecimal.valueOf(2.99), NOT_RATED, LocalDate.now());
+        pm.reviewProduct(104, THREE_STAR, "Just another cookie");
+        pm.reviewProduct(104, THREE_STAR, "Ok");
+        pm.printProductReport(104);
 
-        Product p5 = pm.createProduct(105, "Hot Chocolate", BigDecimal.valueOf(2.50), NOT_RATED);
-        pm.reviewProduct(p5, FOUR_STAR, "Tasty");
-        pm.reviewProduct(p5, FOUR_STAR, "Not bast at all");
-        pm.printProductReport(p5);
+        pm.createProduct(105, "Hot Chocolate", BigDecimal.valueOf(2.50), NOT_RATED);
+        pm.reviewProduct(105, FOUR_STAR, "Tasty");
+        pm.reviewProduct(105, FOUR_STAR, "Not bast at all");
+        pm.printProductReport(105);
 
-        Product p6 = pm.createProduct(106, "Chocolate", BigDecimal.valueOf(2.50), NOT_RATED, LocalDate.now().plusDays(3));
-        pm.reviewProduct(p6, TWO_STAR, "Too seet");
-        pm.reviewProduct(p6, THREE_STAR, "Better than cookie");
-        pm.reviewProduct(p6, TWO_STAR, "Too bitter");
-        pm.reviewProduct(p6, ONE_STAR, "I don't get it!");
-        pm.printProductReport(p6);
+        pm.createProduct(106, "Chocolate", BigDecimal.valueOf(2.50), NOT_RATED, LocalDate.now().plusDays(3));
+        pm.reviewProduct(106, TWO_STAR, "Too seet");
+        pm.reviewProduct(106, THREE_STAR, "Better than cookie");
+        pm.reviewProduct(106, TWO_STAR, "Too bitter");
+        pm.reviewProduct(106, ONE_STAR, "I don't get it!");
+        pm.printProductReport(106);
     }
 }

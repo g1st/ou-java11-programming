@@ -14,13 +14,7 @@ import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.ResourceBundle;
+import java.util.*;
 
 // this is factory class
 public class ProductManager {
@@ -66,10 +60,18 @@ public class ProductManager {
         return newProduct;
     }
 
+    public Product reviewProduct(int id, Rating rating, String comments) {
+        return reviewProduct(findProduct(id), rating, comments);
+    }
+
+    public void printProductReport(int id) {
+        printProductReport(findProduct(id));
+    }
+
     public void printProductReport(Product product) {
         StringBuilder txt = new StringBuilder();
+        List<Review> reviews = products.get(product);
 
-        // go through each product
         txt.append(MessageFormat.format(resources.getString("product"),
                 product.getName(),
                 moneyFormat.format(product.getPrice()),
@@ -78,7 +80,9 @@ public class ProductManager {
 
         txt.append('\n');
 
-        for (Review review : products.get(product)) {
+        Collections.sort(reviews);
+
+        for (Review review : reviews) {
             txt.append(MessageFormat.format(
                     resources.getString("review"),
                     review.getRating().getStars(),
@@ -108,5 +112,13 @@ public class ProductManager {
         return Rateable.convert(averageNumOfStars);
     }
 
+    public Product findProduct(int id) {
+        for (Product p : products.keySet()) {
+            if (p.getId() == id) {
+                return p;
+            }
+        }
+        return null;
+    }
 
 }
