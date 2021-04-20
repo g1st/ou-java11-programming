@@ -100,6 +100,21 @@ public class ProductManager {
         System.out.println(txt);
     }
 
+    public void printProducts(Comparator<Product> sorter) {
+        List<Product> productList = new ArrayList<>(products.keySet());
+//        Collections.sort(productList, sorter);
+        productList.sort(sorter);
+        StringBuilder txt = new StringBuilder();
+
+        for (Product p : productList) {
+            txt.append(formatter.formatProduct(p));
+            txt.append('\n');
+        }
+
+        System.out.println(txt);
+    }
+
+
     public Rating getAverageRating(List<Review> reviews) {
         int stars = 0;
         for (Review review : reviews) {
