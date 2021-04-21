@@ -17,6 +17,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.*;
 import java.util.function.Predicate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 public class ProductManager {
@@ -28,6 +30,7 @@ public class ProductManager {
                     "fr-FR", new ResourceFormatter(Locale.FRANCE),
                     "ru-RU", new ResourceFormatter(new Locale("ru", "RU")),
                     "zh-CN", new ResourceFormatter(Locale.CHINA));
+    private static final Logger logger = Logger.getLogger(ProductManager.class.getName());
 
     public ProductManager(Locale locale) {
         this(locale.toLanguageTag());
@@ -73,11 +76,20 @@ public class ProductManager {
     }
 
     public Product reviewProduct(int id, Rating rating, String comments) {
-        return reviewProduct(findProduct(id), rating, comments);
+        try {
+            return reviewProduct(findProduct(id), rating, comments);
+        } catch (ProductManagerException e) {
+            logger.log(Level.INFO, e.getMessage());
+        }
+        return null;
     }
 
     public void printProductReport(int id) {
-        printProductReport(findProduct(id));
+        try {
+            printProductReport(findProduct(id));
+        } catch (ProductManagerException e) {
+            logger.log(Level.INFO, e.getMessage());
+        }
     }
 
     public void printProductReport(Product product) {
@@ -127,12 +139,13 @@ public class ProductManager {
         );
     }
 
-    public Product findProduct(int id) {
+    public Product findProduct(int id) throws ProductManagerException {
             return products.keySet()
                     .stream()
                     .filter(product -> product.getId() == id)
                     .findFirst()
-                    .get(); // get throws NoSuchElementException for us
+                    //.get(); // get throws NoSuchElementException for us
+                    .orElseThrow(() -> new ProductManagerException("Product with " + id + " not found")); // this one is not a runtime exception, it's a checked exception so we need to catch it or propagate to the calling method
 //                    .orElseGet(() -> null);
     }
 
