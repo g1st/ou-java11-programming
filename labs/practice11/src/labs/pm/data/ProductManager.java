@@ -109,7 +109,7 @@ public class ProductManager {
                 .sorted(sorter)
                 .filter(filter)
                 .forEach(product ->
-                    txt.append(formatter.formatProduct(product) + '\n'));
+                        txt.append(formatter.formatProduct(product) + '\n'));
 
         System.out.println(txt);
     }
@@ -132,6 +132,20 @@ public class ProductManager {
                 .filter(product -> product.getId() == id)
                 .findFirst()
                 .orElseGet(() -> null);
+    }
+
+    public Map<String, String> getDiscounts() {
+        return products.keySet()
+                .stream()
+                .collect(
+                        Collectors.groupingBy(
+                                p -> p.getRating().getStars(),
+                                Collectors.collectingAndThen(
+                                        Collectors.summingDouble(d -> d.getDiscount().doubleValue()),
+                                        discount -> formatter.moneyFormat.format(discount)
+                                )
+                        )
+                );
     }
 
     private static class ResourceFormatter {

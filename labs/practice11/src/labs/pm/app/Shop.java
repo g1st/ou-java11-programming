@@ -15,7 +15,9 @@ import static labs.pm.data.Rating.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 public class Shop {
     /**
@@ -80,5 +82,10 @@ public class Shop {
 //
 //        pm.printProducts(ratingSorter.thenComparing(priceSorter));
 //        pm.printProducts(ratingSorter.thenComparing(priceSorter).reversed());
+        Map<String, String> test = new HashMap<>();
+        test.put("1", "1");
+        test.put("2", "2");
+
+        pm.getDiscounts().forEach((rating, discount) -> System.out.println(rating + '\t' + discount));
     }
 }
