@@ -12,8 +12,11 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.MessageFormat;
 import java.text.NumberFormat;
+import java.text.ParseException;
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.time.format.FormatStyle;
 import java.util.*;
 import java.util.function.Predicate;
@@ -24,6 +27,9 @@ import java.util.stream.Collectors;
 public class ProductManager {
     private Map<Product, List<Review>> products = new HashMap<>();
     private ResourceFormatter formatter;
+    private ResourceBundle config = ResourceBundle.getBundle("labs.pm.data.config");
+    private MessageFormat productFormat = new MessageFormat(config.getString("product.data.format"));
+    private MessageFormat reviewFormat = new MessageFormat(config.getString("review.data.format"));
     private static Map<String, ResourceFormatter> formatters =
             Map.of("en-GB", new ResourceFormatter(Locale.UK),
                     "en-US", new ResourceFormatter(Locale.US),
@@ -127,6 +133,40 @@ public class ProductManager {
         System.out.println(txt);
     }
 
+    public void parseReview(String text) {
+        try {
+            Object[] values = reviewFormat.parse(text);
+            reviewProduct(
+                    Integer.parseInt((String) values[0]),
+                    Rateable.convert(Integer.parseInt((String) values[1])),
+                    (String) values[2]);
+
+        } catch (ParseException | NumberFormatException e) {
+            logger.log(Level.WARNING, "Error parsing review " + text, e);
+        }
+    }
+
+    public void parseProduct(String text) {
+        try {
+            Object[] values = productFormat.parse(text);
+            int id = Integer.parseInt((String) values[1]);
+            String name = (String) values[2];
+            BigDecimal price = BigDecimal.valueOf(Double.parseDouble((String) values[3]));
+            Rating rating = Rateable.convert(Integer.parseInt((String) values[4]));
+            switch ((String) values[0]) {
+                case "D":
+                    createProduct(id, name, price, rating);
+                    break;
+                case "F":
+                    LocalDate bestBefore = LocalDate.parse((String) values[5]);
+                    createProduct(id, name, price, rating, bestBefore);
+                    break;
+            }
+
+        } catch (ParseException | NumberFormatException | DateTimeParseException e) {
+            logger.log(Level.WARNING, "Error parsing product " + text + " " + e.getMessage(), e);
+        }
+    }
 
     public Rating getAverageRating(List<Review> reviews) {
         return Rateable.convert(
@@ -140,12 +180,13 @@ public class ProductManager {
     }
 
     public Product findProduct(int id) throws ProductManagerException {
-            return products.keySet()
-                    .stream()
-                    .filter(product -> product.getId() == id)
-                    .findFirst()
-                    //.get(); // get throws NoSuchElementException for us
-                    .orElseThrow(() -> new ProductManagerException("Product with " + id + " not found")); // this one is not a runtime exception, it's a checked exception so we need to catch it or propagate to the calling method
+        return products.keySet()
+                .stream()
+                .filter(product -> product.getId() == id)
+                .findFirst()
+                //.get(); // get throws NoSuchElementException for us
+                .orElseThrow(() -> new ProductManagerException(
+                        "Product with id " + id + " not found")); // this one is not a runtime exception, it's a checked exception so we need to catch it or propagate to the calling method
 //                    .orElseGet(() -> null);
     }
 
